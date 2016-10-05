@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="example.zxing">
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".SampleApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/zebra_icon"
+        android:label="@string/app_name">
+        <activity
+            android:name="zebra.activity.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <activity
+            android:name="zebra.activity.LoadaingActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="zebra.activity.ToolbarCaptureActivity"
+            android:clearTaskOnLaunch="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:theme="@style/AppCompatCaptureTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+
+        <!-- 수정 된 ManiFest -->
+
+        <activity
+            android:name="zebra.activity.LoginActivity"
+            android:label="LoginActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme"></activity>
+
+        <activity
+            android:name="zebra.activity.ProductRegisterActivity"
+            android:label="ProductRegisterActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme"></activity>
+
+        <activity
+            android:name="zebra.activity.SearchActivity"
+            android:label="SearchActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme"></activity>
+
+        <activity
+            android:name="zebra.activity.ReviewActivityTest"
+            android:label="ReviewActivityTest"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme"></activity>
+
+        <activity
+            android:name="zebra.activity.CategoryActivity"
+            android:label="CategoryActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme"></activity>
+
+        <activity
+            android:name="zebra.activity.MyPageActivity"
+            android:label="CategoryActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme"></activity>
+
+        <!-- [START gcm_receiver] -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="zebra.gcm" />
+            </intent-filter>
+        </receiver>
+        <!-- [END gcm_receiver] -->
+
+        <!-- [START gcm_listener_service] -->
+        <service
+            android:name="zebra.gcm.MyGcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <!-- [END gcm_listener_service] -->
+
+        <!-- [START instanceId_listener_service] -->
+        <service
+            android:name="zebra.gcm.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <!-- [END instanceId_listener_service] -->
+
+        <!-- [START gcm_registration_service] -->
+        <service
+            android:name="zebra.gcm.RegistrationIntentService"
+            android:exported="false"></service>
+        <!-- [END gcm_registration_service] -->
+
+    </application>
+
+</manifest>
