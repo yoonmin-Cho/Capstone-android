@@ -131,6 +131,7 @@ public class NetworkManager {
 
     private static final String SCAN_URL = SERVER_URL + "/appScan";
 
+    // bacode 처리
     public void review(Context context, String barcode, final OnResultResponseListener<Review> listener) {
         RequestParams params = new RequestParams();
         params.put("barcode", barcode);
