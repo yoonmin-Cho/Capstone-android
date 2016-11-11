@@ -140,3 +140,5 @@ You can then use your local version by specifying in your `build.gradle` file:
 [4]: https://github.com/journeyapps/zxing-android-embedded/blob/2.x/README.md
 [5]: zxing-android-embedded/src/com/google/zxing/integration/android/IntentIntegrator.java
 [7]: http://www.apache.org/licenses/LICENSE-2.0
+
+---
