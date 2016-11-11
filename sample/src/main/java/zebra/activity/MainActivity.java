@@ -93,13 +93,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(loginIntent);
             }
         });
+
+        // scan 버튼 클릭시
         barcodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //networkMyPage();
+                //initateScan(), barcode/QR scanner 화면 호출
                 new IntentIntegrator(MainActivity.this).setCaptureActivity(ToolbarCaptureActivity.class).initiateScan();
             }
         });
+
         categoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setAdapter(naviAdapter);
         NaviHeaderView header = new NaviHeaderView(MainActivity.this);
 
-        //onResume()에서 두번째 불려지는 경우 naviHeader가 두개 생기는 경우를 방지!!
+        //onResume()에서 두번째 불려지는 경우 naviHeader가 두 개 생기는 경우를 방지!
         if (isFirst) mDrawerList.addHeaderView(header);
 
         for (int i = 0; i < 4; i++) {
@@ -214,23 +218,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // barcode scan 완료 후 처리
     public void network() {
         NetworkManager.getInstance().review(this, barcode, new NetworkManager.OnResultResponseListener<Review>() {
             @Override
             public void onSuccess(Review result) {
                 //등록 된 상품이 없는 경우
                 if (result == null) {
+                    //비회원
                     if (MemberManager.getInstance().getIsLogin() == false) {
                         Intent i = new Intent(MainActivity.this, LoginActivity.class);
                         i.putExtra("fromRegister", true);
                         startActivity(i);
                         return;
                     }
+                    //등록 요청으로 이동 (ProductRegisterActivity)
                     Intent i = new Intent(MainActivity.this, ProductRegisterActivity.class);
                     startActivity(i);
-                } else if (result.productInfo.productName.equals("nothingApply")) {
+                }
+                // 등록 요청은 완료됐지만, 기업의 허가가 없는 경우
+                else if (result.productInfo.productName.equals("nothingApply")) {
                     Toast.makeText(MainActivity.this, "이미 등록 요청 된 상품입니다.", Toast.LENGTH_LONG).show();
-                } else { //리뷰 get
+                }
+                //리뷰 가져오기
+                else {
                     Intent i = new Intent(MainActivity.this, ReviewActivityTest.class);
                     ScanManager.getInstance().setProductUrl(result.productInfo.productUrl);
                     i.putExtra("Result", result);
